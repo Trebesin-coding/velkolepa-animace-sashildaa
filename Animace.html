@@ -1,16 +1,12 @@
+<!DOCTYPE html>
 <html lang="cs">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sluneční zatmění</title>
     <style>
-      .nebo {
-        background: #adc4db;
-        background: linear-gradient(
-          0deg,
-          rgba(173, 196, 219, 1) 0%,
-          rgba(99, 139, 191, 1) 100%
-        );
+      body {
+        background: rgb(168, 212, 255);
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -22,12 +18,7 @@
       }
       @keyframes neboanimace {
         0% {
-          background: #adc4db;
-          background: linear-gradient(
-            0deg,
-            rgba(173, 196, 219, 1) 0%,
-            rgba(99, 139, 191, 1) 100%
-          );
+          background: rgb(168, 212, 255);
         }
         40% {
           background: black;
@@ -36,13 +27,41 @@
           background: black;
         }
         100% {
-          background: #adc4db;
-          background: linear-gradient(
-            0deg,
-            rgba(173, 196, 219, 1) 0%,
-            rgba(99, 139, 191, 1) 100%
-          );
+          background: rgb(168, 212, 255);
         }
+      }
+      .hvezdy {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        box-shadow: 100px 50px white, 200px 150px white, 300px 80px white,
+          400px 200px white, 550px 120px white, 700px 90px white,
+          900px 180px white, 1100px 40px white, 1300px 200px white,
+          1500px 100px white, 50px 300px white, 350px 350px white,
+          750px 300px white, 950px 260px white, 1150px 340px white;
+      }
+      @keyframes hvezdyanimace {
+        0% {
+          opacity: 0;
+        }
+        40% {
+          opacity: 100%;
+        }
+        60% {
+          opacity: 100%;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .animace-hvezdy {
+        animation: hvezdyanimace 6s ease-in-out forwards;
       }
       .slunce {
         position: absolute;
@@ -51,20 +70,21 @@
         background-color: rgba(251, 182, 63, 1);
         background: radial-gradient(
           circle,
-          rgba(251, 182, 63, 1) 0%,
-          rgb(255, 192, 103) 100%
+          rgb(255, 204, 63) 0%,
+          rgb(255, 178, 71) 100%
         );
         border: 1px solid transparent;
         box-shadow: 0px 0px 300px hsl(41, 100%, 60%);
         border-radius: 100%;
         top: 50%;
         left: 50%;
+        cursor: pointer;
         transform: translate(-50%, -50%);
         animation: svet 1s linear infinite alternate;
       }
       @keyframes svet {
         100% {
-          box-shadow: 0px 0px 100px hsl(43, 100%, 50%);
+          box-shadow: 0px 0px 100px hsl(34, 100%, 50%);
         }
       }
       .mesic {
@@ -73,7 +93,7 @@
         aspect-ratio: 1/1;
         background-color: hsl(0, 0%, 50%);
         border-radius: 100%;
-        transform: translateY(-50%);
+        transform: translate(-50%, -50%);
         top: 50%;
         left: 100%;
       }
@@ -104,17 +124,20 @@
   </head>
   <body>
     <div class="nebo">
+      <div class="hvezdy"></div>
       <div class="slunce"></div>
       <div class="mesic"></div>
     </div>
     <script>
       const mesic = document.querySelector(".mesic");
-      const pozadi = document.querySelector(".nebo");
+      const hvezdy = document.querySelector(".hvezdy");
+      const pozadi = document.querySelector("body");
       const slunce = document.querySelector(".slunce");
 
       slunce.addEventListener("click", function () {
         mesic.classList.add("animace-mesic");
         pozadi.classList.add("animace-pozadi");
+        hvezdy.classList.add("animace-hvezdy");
       });
     </script>
   </body>
